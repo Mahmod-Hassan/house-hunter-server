@@ -27,9 +27,12 @@ mongoose
 .then(() => console.log('connection successfull'))
 .catch((err) => console.log(err))
 
+// to chech whether server running or not
 app.get('/', (req,res) => {
   res.send('server running')
 })
+
+// use external routes
 app.use('/user', userRoute);
 
 //404 error handler
@@ -45,8 +48,8 @@ app.use((req, res, next) => {
       // this error hanler set to the last
        next('there was an error in header sent')
     }
-    else if(err.message){
-      res.status(500).send('there was an error in err.message')
+    else if(err){
+      res.status(500).send(err)
     }
     else{
       res.status(500).send('there was an error')
