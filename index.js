@@ -35,26 +35,24 @@ app.get('/', (req,res) => {
 // use external routes
 app.use('/user', userRoute);
 
-//404 error handler
+// if path not match this middleware will catch the error
 app.use((req, res, next) => {
     next('requested url is not found');
   })
   
-  // custom synchronous error handler
-  app.use((err, req, res, next) => {
+  // my custom error handler (middleware)
+  const errorHandler = ((err, req, res, next) => {
     if(res.headersSent){
       // this next() call goes to express default error handler
       // that is invisible and default error handler of express
       // this error hanler set to the last
-       next('there was an error in header sent')
+      return next(err)
     }
-    else if(err){
-      res.status(500).send(err)
-    }
-    else{
-      res.status(500).send('there was an error')
-    }
+    res.send({error: err})
   })
-app.listen(5000, () => {
-    console.log(`server running on port 5000`)
-})
+  app.use(errorHandler);
+
+  // listening on port 5000
+  app.listen(5000, () => {
+      console.log(`server running on port 5000`)
+  })
