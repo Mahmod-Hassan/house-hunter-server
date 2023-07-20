@@ -5,7 +5,8 @@ require('dotenv').config();
 
 
 // require all routes file
-const userRoute = require('./routes/userRoute');
+const authenticationRoute = require('./routes/authenticationRoute');
+const houseOwnerRoute = require('./routes/houseOwnerRoute');
 
 // express app initialization
 const app = express();
@@ -33,7 +34,8 @@ app.get('/', (req,res) => {
 })
 
 // use external routes
-app.use('/user', userRoute);
+app.use('/auth', authenticationRoute);
+app.use('/house-owner', houseOwnerRoute);
 
 // if path not match this middleware will catch the error
 app.use((req, res, next) => {

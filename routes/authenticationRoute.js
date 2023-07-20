@@ -31,7 +31,7 @@ router.post('/signup', async (req, res, next) => {
         // res.send(data)
     }
     catch (err) {
-        console.log(err);
+        // console.log(err);
         res.status(401).send({message: 'authentication failed'})
     }
 })
@@ -47,7 +47,7 @@ router.post('/login', async (req, res, next) => {
 
        if(isValidPassword){
          // token generate
-         const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: '1d'});
+         const token = jwt.sign({email}, process.env.JWT_SECRET);
          return res.send({ accessToken: token });
        }else{
         return next('password is not valid')
