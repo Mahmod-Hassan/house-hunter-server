@@ -36,8 +36,8 @@ app.get('/', (req,res) => {
 
 // use external routes
 app.use(authenticationRoute);
-app.use(houseOwnerRoute,'house-owner');
-app.use(houseRenterRoute, 'house-renter');
+app.use('house-owner', houseOwnerRoute);
+app.use('house-renter', houseRenterRoute);
 
 // if path not match this middleware will catch the error
 app.use((req, res, next) => {
