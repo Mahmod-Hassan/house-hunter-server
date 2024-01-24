@@ -12,15 +12,20 @@ router.post('/', async (req,res) => {
     res.send(result);
 })
 
+router.get('/:email', async (req,res) => {
+    const email = req.params.email;
+    const data = await House.find({email: email});
+    res.send(data);
+})
+
 router.get('/', async (req,res) => {
-    const data = await House.find();
+    const data = await House.find({});
     res.send(data);
 })
 
 router.delete('/:id', async (req,res) => {
     const id = req.params.id;
     const data = await House.deleteOne({_id: id});
-    console.log(data);
     res.send(data);
 })
 

@@ -10,6 +10,7 @@ const User = new mongoose.model("User", userSchema);
 
 router.post('/signup', async (req, res, next) => {
     const {fullName, role, phoneNumber, email, password} = req.body;
+    console.log(email);
     try {
         const oldUser = await User.findOne({email})
         if(oldUser){
@@ -63,7 +64,7 @@ router.post('/login', async (req, res, next) => {
    }
 })
 
-router.post('/getUser', verifyToken, async (req,res) => {
+router.post('/get-user', verifyToken, async (req,res) => {
     try {
        const {email} = req.decoded;
        const user = await User.findOne({email});
